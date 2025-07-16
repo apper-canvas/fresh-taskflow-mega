@@ -10,6 +10,7 @@ const ProjectCard = ({
   project, 
   className, 
   onClick,
+  onEdit,
   isActive = false,
   ...props 
 }) => {

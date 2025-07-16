@@ -1,0 +1,62 @@
+[
+  {
+    "Id": 1,
+    "name": "Website Redesign",
+    "description": "Complete redesign of the company website with modern UI/UX principles and responsive design.",
+    "status": "active",
+    "startDate": "2024-01-15T00:00:00.000Z",
+    "endDate": "2024-03-30T00:00:00.000Z",
+    "progress": 65,
+    "createdAt": "2024-01-10T08:00:00.000Z"
+  },
+  {
+    "Id": 2,
+    "name": "Mobile App Development",
+    "description": "Native iOS and Android app development for customer engagement and service delivery.",
+    "status": "active",
+    "startDate": "2024-02-01T00:00:00.000Z",
+    "endDate": "2024-06-15T00:00:00.000Z",
+    "progress": 35,
+    "createdAt": "2024-01-25T10:30:00.000Z"
+  },
+  {
+    "Id": 3,
+    "name": "Database Migration",
+    "description": "Migrate legacy database to modern cloud infrastructure with improved performance and scalability.",
+    "status": "planning",
+    "startDate": "2024-03-01T00:00:00.000Z",
+    "endDate": "2024-05-01T00:00:00.000Z",
+    "progress": 15,
+    "createdAt": "2024-02-10T14:20:00.000Z"
+  },
+  {
+    "Id": 4,
+    "name": "Marketing Campaign",
+    "description": "Q2 marketing campaign for product launch with digital and traditional media channels.",
+    "status": "completed",
+    "startDate": "2024-01-01T00:00:00.000Z",
+    "endDate": "2024-02-28T00:00:00.000Z",
+    "progress": 100,
+    "createdAt": "2023-12-15T09:00:00.000Z"
+  },
+  {
+    "Id": 5,
+    "name": "Security Audit",
+    "description": "Comprehensive security audit and vulnerability assessment of all systems and applications.",
+    "status": "on_hold",
+    "startDate": "2024-02-15T00:00:00.000Z",
+    "endDate": "2024-04-15T00:00:00.000Z",
+    "progress": 25,
+    "createdAt": "2024-02-01T16:45:00.000Z"
+  },
+  {
+    "Id": 6,
+    "name": "Customer Portal",
+    "description": "Self-service customer portal with account management, billing, and support features.",
+    "status": "active",
+    "startDate": "2024-01-20T00:00:00.000Z",
+    "endDate": "2024-04-30T00:00:00.000Z",
+    "progress": 50,
+    "createdAt": "2024-01-15T11:15:00.000Z"
+  }
+]

@@ -161,7 +161,35 @@ body {
     @apply h-4;
   }
   
-  .timeline-task-content {
+.timeline-task-content {
     @apply px-1 text-xs;
+  }
+}
+
+/* Date Input Enhancements */
+.date-input {
+  @apply relative;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  @apply cursor-pointer;
+}
+
+.date-input:focus {
+  @apply ring-2 ring-primary-500 border-transparent;
+}
+
+.date-input:hover:not(:disabled) {
+  @apply border-gray-400;
+}
+
+.date-input:disabled {
+  @apply bg-gray-50 cursor-not-allowed;
+}
+
+/* Mobile date picker improvements */
+@media (max-width: 768px) {
+  .date-input {
+    @apply text-base; /* Prevents zoom on iOS */
   }
 }

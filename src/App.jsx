@@ -147,10 +147,10 @@ return (
           loading={projectsLoading}
           selectedProject={selectedProject}
           onProjectSelect={handleProjectSelect}
-          onNewProject={handleNewProject}
+onNewProject={handleNewProject}
         />
         
-        <main className="flex-1 lg:ml-80 min-h-screen">
+        <main className={`flex-1 ${isSidebarOpen ? 'lg:ml-80' : ''} min-h-screen`}>
           <div className="p-6">
             <Routes>
               <Route

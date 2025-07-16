@@ -134,14 +134,11 @@ function App() {
     setSelectedProject(updatedProject);
   };
 
-  return (
+return (
     <div className="min-h-screen bg-gray-50">
       <Header
         onMenuToggle={handleMenuToggle}
-        onNewProject={handleNewProject}
-        onNewTask={handleNewTask}
       />
-      
       <div className="flex">
         <Sidebar
           isOpen={isSidebarOpen}

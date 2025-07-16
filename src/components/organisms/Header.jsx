@@ -6,8 +6,6 @@ import ApperIcon from "@/components/ApperIcon";
 const Header = ({ 
   className, 
   onMenuToggle,
-  onNewProject,
-  onNewTask,
   ...props 
 }) => {
   return (
@@ -34,29 +32,7 @@ const Header = ({
               <p className="text-sm text-gray-600">Project Management</p>
             </div>
           </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={onNewTask}
-            className="flex items-center gap-2"
-          >
-            <ApperIcon name="Plus" size={16} />
-            <span className="hidden sm:inline">New Task</span>
-          </Button>
-          
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={onNewProject}
-            className="flex items-center gap-2"
-          >
-            <ApperIcon name="FolderPlus" size={16} />
-            <span className="hidden sm:inline">New Project</span>
-          </Button>
-        </div>
+</div>
       </div>
     </header>
   );

@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/utils/cn";
-import Button from "@/components/atoms/Button";
-import FormField from "@/components/molecules/FormField";
-import ApperIcon from "@/components/ApperIcon";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { format } from "date-fns";
+import FormField from "@/components/molecules/FormField";
+import Button from "@/components/atoms/Button";
+import { cn } from "@/utils/cn";
+
+// Helper function to validate dates
+const isValidDate = (dateString) => {
+  if (!dateString || dateString.trim() === '') return false;
+  const date = new Date(dateString);
+  return !isNaN(date.getTime()) && date instanceof Date;
+};
 
 const ProjectModal = ({ 
   isOpen = false, 
@@ -30,8 +36,12 @@ const ProjectModal = ({
         name: project.name || "",
         description: project.description || "",
         status: project.status || "planning",
-        startDate: project.startDate ? format(new Date(project.startDate), "yyyy-MM-dd") : "",
-        endDate: project.endDate ? format(new Date(project.endDate), "yyyy-MM-dd") : ""
+        startDate: project.startDate && isValidDate(project.startDate) 
+          ? format(new Date(project.startDate), "yyyy-MM-dd") 
+          : "",
+        endDate: project.endDate && isValidDate(project.endDate) 
+          ? format(new Date(project.endDate), "yyyy-MM-dd") 
+          : ""
       });
     } else {
       setFormData({
@@ -71,10 +81,14 @@ const ProjectModal = ({
     
     if (!validateForm()) return;
 
-    const projectData = {
+const projectData = {
       ...formData,
-      startDate: formData.startDate ? new Date(formData.startDate).toISOString() : null,
-      endDate: formData.endDate ? new Date(formData.endDate).toISOString() : null
+      startDate: formData.startDate && isValidDate(formData.startDate) 
+        ? new Date(formData.startDate).toISOString() 
+        : null,
+      endDate: formData.endDate && isValidDate(formData.endDate) 
+        ? new Date(formData.endDate).toISOString() 
+        : null
     };
 
     onSave?.(projectData);
@@ -120,13 +134,15 @@ const ProjectModal = ({
               <h2 className="font-display font-semibold text-xl text-gray-900">
                 {project ? "Edit Project" : "Create New Project"}
               </h2>
-              <Button
+<Button
                 variant="ghost"
                 size="sm"
                 onClick={onClose}
                 className="p-2"
               >
-                <ApperIcon name="X" size={20} />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </Button>
             </div>
 
@@ -191,13 +207,15 @@ const ProjectModal = ({
               <div className="flex items-center justify-between pt-6 border-t border-gray-200">
                 <div>
                   {project && onDelete && (
-                    <Button
+<Button
                       type="button"
                       variant="danger"
-                      onClick={() => onDelete(project.Id)}
+                      onClick={() => onDelete(project.id)}
                       className="flex items-center gap-2"
                     >
-                      <ApperIcon name="Trash2" size={16} />
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 6H5H21M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19ZM10 11V17M14 11V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                       Delete Project
                     </Button>
                   )}

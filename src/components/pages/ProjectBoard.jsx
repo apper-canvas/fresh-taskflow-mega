@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import { cn } from "@/utils/cn";
 import { toast } from "react-toastify";
 import KanbanBoard from "@/components/organisms/KanbanBoard";
+import TimelineView from "@/components/organisms/TimelineView";
 import TaskModal from "@/components/organisms/TaskModal";
 import FilterBar from "@/components/molecules/FilterBar";
 import Badge from "@/components/atoms/Badge";
+import Button from "@/components/atoms/Button";
 import ProgressBar from "@/components/atoms/ProgressBar";
 import ApperIcon from "@/components/ApperIcon";
 import Loading from "@/components/ui/Loading";
@@ -28,11 +30,12 @@ const ProjectBoard = ({
   const [error, setError] = useState("");
   const [selectedTask, setSelectedTask] = useState(null);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
-  const [filters, setFilters] = useState({
+const [filters, setFilters] = useState({
     status: "",
     priority: "",
     assignee: ""
   });
+  const [viewMode, setViewMode] = useState("kanban");
 
   useEffect(() => {
     if (projectId) {
@@ -234,7 +237,7 @@ const ProjectBoard = ({
     on_hold: "error"
   };
 
-  return (
+return (
     <div className={cn("space-y-6", className)} {...props}>
       {/* Project Header */}
       <motion.div
@@ -290,6 +293,26 @@ const ProjectBoard = ({
             </div>
           </div>
         </div>
+        
+        {/* View Toggle */}
+        <div className="flex items-center gap-2 mt-6 pt-6 border-t border-gray-200">
+          <Button
+            variant={viewMode === "kanban" ? "primary" : "secondary"}
+            size="sm"
+            onClick={() => setViewMode("kanban")}
+          >
+            <ApperIcon name="Columns" size={16} />
+            Kanban
+          </Button>
+          <Button
+            variant={viewMode === "timeline" ? "primary" : "secondary"}
+            size="sm"
+            onClick={() => setViewMode("timeline")}
+          >
+            <ApperIcon name="Calendar" size={16} />
+            Timeline
+          </Button>
+        </div>
       </motion.div>
 
       {/* Filters */}
@@ -299,14 +322,35 @@ const ProjectBoard = ({
         onReset={handleFilterReset}
       />
 
-      {/* Kanban Board */}
-      <KanbanBoard
-        tasks={filteredTasks}
-        loading={loading}
-        onTaskClick={handleTaskClick}
-        onTaskMove={handleTaskMove}
-        onNewTask={handleNewTask}
-      />
+{/* View Content */}
+      {viewMode === "kanban" ? (
+        <KanbanBoard
+          tasks={filteredTasks}
+          loading={loading}
+          onTaskClick={handleTaskClick}
+          onTaskMove={handleTaskMove}
+          onNewTask={handleNewTask}
+        />
+      ) : (
+        <TimelineView
+          tasks={filteredTasks}
+          loading={loading}
+          onTaskClick={handleTaskClick}
+          onTaskScheduleChange={async (taskId, startDate, endDate) => {
+            try {
+              const updatedTask = await taskService.update(taskId, {
+                startDate: startDate.toISOString(),
+                dueDate: endDate.toISOString()
+              });
+              setTasks(prev => prev.map(t => t.Id === taskId ? updatedTask : t));
+              toast.success("Task schedule updated successfully!");
+            } catch (err) {
+              toast.error("Failed to update task schedule");
+            }
+          }}
+          onNewTask={handleNewTask}
+        />
+      )}
 
       {/* Task Modal */}
       <TaskModal
